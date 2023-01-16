@@ -70,34 +70,17 @@ typedef
 #define BZ_EXPORT
 #endif
 
+#define BZ_NO_STDIO
+
 #ifndef BZ_NO_STDIO
-/* Need a definitition for FILE */
+/* Need a definition for FILE */
 #include <stdio.h>
 #endif
 
-#ifdef _WIN32
-#   include <windows.h>
-#   ifdef small
-      /* windows.h define small to char */
-#      undef small
-#   endif
-#   ifndef WINAPI
-#   define WINAPI
-#   endif
-#   ifdef BZ_EXPORT
-#   define BZ_API(func) WINAPI func
-#   define BZ_EXTERN extern
-#   else
-   /* import windows dll dynamically */
-#   define BZ_API(func) (WINAPI * func)
-#   define BZ_EXTERN
-#   endif
-#else
-#   define BZ_API(func) func
-#endif
+#define BZ_API(func) func
 
 #ifndef BZ_EXTERN
-#define BZ_EXTERN extern
+#define BZ_EXTERN
 #endif
 
 /*-- Core (low-level) library functions --*/
