@@ -22,13 +22,11 @@
 #ifndef _BZLIB_H
 #define _BZLIB_H
 
-#ifndef BZ_NO_STDIO
-/* Need a definitition for FILE */
-#include <stdio.h>
-#endif
+#define BZ_NO_STDIO
 
-#ifdef _WIN32
-#include <windows.h>
+#ifndef BZ_NO_STDIO
+/* Need a definition for FILE */
+#include <stdio.h>
 #endif
 
 #ifdef __cplusplus
@@ -79,23 +77,8 @@ typedef
 #define BZ_EXPORT
 #endif
 
-#ifdef _WIN32
-#   ifdef small
-      /* windows.h define small to char */
-#      undef small
-#   endif
-#   ifdef BZ_EXPORT
-#   define BZ_API(func) WINAPI func
-#   define BZ_EXTERN extern
-#   else
-   /* import windows dll dynamically */
-#   define BZ_API(func) (WINAPI * func)
-#   define BZ_EXTERN
-#   endif
-#else
-#   define BZ_API(func) func
-#   define BZ_EXTERN extern
-#endif
+#define BZ_API(func) func
+#define BZ_EXTERN
 
 
 /*-- Core (low-level) library functions --*/
